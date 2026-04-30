@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to release (e.g. v1.0)"
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -11,13 +17,15 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || inputs.tag }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Build .alfredworkflow
         env:
-          BRAIN_CAPTURE_VERSION: ${{ github.ref_name }}
+          BRAIN_CAPTURE_VERSION: ${{ env.RELEASE_TAG }}
         run: |
           bash scripts/build_workflow.sh
 
@@ -25,5 +33,7 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_TAG }}
           files: |
             dist/*.alfredworkflow

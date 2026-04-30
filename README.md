@@ -59,6 +59,11 @@ git push origin main --tags
 
 Then download the `.alfredworkflow` from the GitHub Release assets and double-click to install/update in Alfred.
 
+If a tag push doesn’t trigger the release workflow, you can run it manually from GitHub Actions:
+
+- Actions → “Release Alfred Workflow” → Run workflow
+- Enter the existing tag (for example `v1.0`)
+
 4) Run Alfred → type `br` → select “Open config file” once to create/open:
 
 `~/.config/brain-capture/config.yaml`
