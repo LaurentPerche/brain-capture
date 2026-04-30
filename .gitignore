@@ -1,0 +1,14 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+
+# Built Alfred workflow artifacts
+dist/
+*.alfredworkflow
+
+# Local logs/state
+.brain-capture/
+
+# Local git metadata (this repo uses standard .git when cloned; gitdir/ is a local workaround)
+gitdir/
